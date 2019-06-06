@@ -36,6 +36,7 @@ export class ServersComponent implements OnInit {
 
   onClickButton() {
     this.passwordDisplayed = !this.passwordDisplayed;
-    this.buttonClicks.push(this.buttonClicks.length + 1);
+    // this.buttonClicks.push(this.buttonClicks.length + 1);
+    this.buttonClicks.push(new Date());
   }
 }
