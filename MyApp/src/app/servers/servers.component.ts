@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Button } from 'protractor';
 
 @Component({
   selector: 'app-servers',
@@ -11,6 +12,8 @@ export class ServersComponent implements OnInit {
   serverName = 'myServer';
   serverCreated = false;
   servers = ['Testserver 1', 'Testserver 2'];
+  passwordDisplayed = false;
+  buttonClicks = [];
 
   constructor() {
     setTimeout(() => {
@@ -31,4 +34,8 @@ export class ServersComponent implements OnInit {
     this.serverName = (<HTMLInputElement>event.target).value;
   }
 
+  onClickButton() {
+    this.passwordDisplayed = !this.passwordDisplayed;
+    this.buttonClicks.push(this.buttonClicks.length + 1);
+  }
 }
