@@ -13,7 +13,8 @@
     [disabled]="!allowNewServer"
     (click)="onCreateServer()">Add server
 </button>
-<p>{{ serverCreationStatus }}</p>
+<!-- <p>{{ serverCreationStatus }}</p> -->
+<p *ngIf="serverCreated">Server was created, server name is {{ serverName }}</p>
 <br>
 <app-server></app-server>
 <app-server></app-server>
