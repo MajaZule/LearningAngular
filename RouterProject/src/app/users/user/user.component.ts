@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +16,12 @@ export class UserComponent implements OnInit {
       id: this.route.snapshot.params['id'],
       name: this.route.snapshot.params['name']
     };
+    this.route.params.subscribe(  // this will update the user object when the parameter changes
+      (params: Params) => {       // only if the parameters change; subscribes on the initialization
+        this.user.id = params['id'];
+        this.user.name = params['name'];
+      }
+    );
   }
 
 }
