@@ -13,10 +13,12 @@ export class AuthService {   // fake service
     }
 
     login() {
+        console.log('you are logged in');
         this.loggedIn = true;
     }
 
     logout() {
+        console.log('you are logged out');
         this.loggedIn = false;
     }
 }
