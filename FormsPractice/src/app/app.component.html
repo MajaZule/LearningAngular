@@ -13,6 +13,68 @@
            Upon submitting the form, you should simply print the Value of the Form to the Console.
            Optionally, display it in your template.
       -->
+      <br>
+      <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="col-xs-12">
+            <label for="email">Email:</label>
+            <input 
+              type="email" 
+              name="email"
+              ngModel
+              required
+              email
+              #mail="ngModel"
+              class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <p *ngIf="!mail.valid && mail.touched">Please enter a valid email!</p>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-12">
+            <label for="password">Password:</label>
+            <input 
+              type="password"
+              name="password"
+              ngModel
+              required
+              #password="ngModel"
+              class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <p *ngIf="!password.valid && password.touched">Please enter a valid password!</p>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-12">
+            <label for="subscription">Choose your subscription!</label>
+            <select 
+              name="subscription" 
+              id="subscription"
+              [ngModel]="selectedSubs"
+              class="form-control">
+              <option 
+                *ngFor="let subscription of subscriptions"
+                [value]="subscription">
+                {{ subscription }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-12">
+            <button 
+              type="submit" 
+              class="btn btn-primary">
+              Submit</button>
+          </div>
+        </div>
+      </form>
+      <p *ngIf="!form.valid && form.touched">The form is not valid!</p>
     </div>
   </div>
 </div>
