@@ -28,6 +28,10 @@ export class RecipeEditComponent implements OnInit {
 // we are checking if it has an id. It will not be indefined if we are in edit mode;
 // id will be present. if true and id is undefined ( == null ), we are in new mode.
 
+  onSubmit() {
+    console.log(this.recipeForm);
+  }
+
   private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
