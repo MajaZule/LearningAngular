@@ -33,4 +33,10 @@ export class PostsService {
           })
         );
     }
+
+    deletePosts() {
+        return this.http.delete(
+            'https://my-http-project-f9c5f.firebaseio.com/posts.json'
+        );
+    }
 }
