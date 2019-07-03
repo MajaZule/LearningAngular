@@ -9,7 +9,7 @@ import { Post } from './post.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -39,17 +39,19 @@ export class AppComponent implements OnInit {
   private fetchPosts() {
     this.http
       .get<{ [key: string]: Post }>('https://my-http-project-f9c5f.firebaseio.com/posts.json')
-      .pipe(map(responseData => {
-        const postsArray: Post[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postsArray.push({ ...responseData[key], id: key });
+      .pipe(
+        map(responseData => {
+          const postsArray: Post[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({ ...responseData[key], id: key });
+            }
           }
-        }
-        return postsArray;
-      }))
+          return postsArray;
+        })
+      )
       .subscribe(posts => {
-      console.log(posts);
+      this.loadedPosts = posts;
     });
   }
 }
