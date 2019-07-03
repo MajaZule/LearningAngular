@@ -34,7 +34,8 @@ export class PostsService {
             'https://my-http-project-f9c5f.firebaseio.com/posts.json',
             {
                 headers: new HttpHeaders({ 'Custom-header': 'hello' }),
-                params: searchParams
+                params: searchParams,
+                responseType: 'json'
             }
         )
         .pipe(
@@ -56,7 +57,8 @@ export class PostsService {
         return this.http.delete(
             'https://my-http-project-f9c5f.firebaseio.com/posts.json',
             {
-                observe: 'events'
+                observe: 'events',
+                responseType: 'text'
             }
         ).pipe(tap(event => {
             console.log(event);
