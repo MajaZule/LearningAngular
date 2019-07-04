@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})      // we have to use it because we are injecting a service into a service
 export class DataStorageService {
@@ -22,7 +23,19 @@ export class DataStorageService {
 
   fetchRecipes() {
     this.http
-      .get<Recipe[]>('https://course-recipe-book-aebb9.firebaseio.com/recipes.json')
+      .get<Recipe[]>(
+        'https://course-recipe-book-aebb9.firebaseio.com/recipes.json'
+      )
+      .pipe(
+        map(recipes => {  // map rxjs operator
+          return recipes.map(recipe => {  // map a js array method
+            return {
+              ...recipe, 
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          }); 
+        })
+      )
       .subscribe(recipes => {
         this.recipeService.setRecipes(recipes);
       });

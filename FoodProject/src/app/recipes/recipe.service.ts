@@ -8,25 +8,27 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Salmon', 
-      'The best fish', 
-      'https://diethood.com/wp-content/uploads/2018/10/Garlic-Butter-Baked-Salmon-12.jpg',
-      [
-        new Ingredient('Salmon', 1),
-        new Ingredient('Rice', 1)
-      ]),
-    new Recipe(
-      'Pasta', 
-      'Good food', 
-      'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/spaghetti-bolognese_2.jpg',
-      [
-        new Ingredient('Macaroni', 1),
-        new Ingredient('Meatballs', 2),
-        new Ingredient('Tomato sauce', 1)
-      ])
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Salmon', 
+  //     'The best fish', 
+  //     'https://diethood.com/wp-content/uploads/2018/10/Garlic-Butter-Baked-Salmon-12.jpg',
+  //     [
+  //       new Ingredient('Salmon', 1),
+  //       new Ingredient('Rice', 1)
+  //     ]),
+  //   new Recipe(
+  //     'Pasta', 
+  //     'Good food', 
+  //     'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/spaghetti-bolognese_2.jpg',
+  //     [
+  //       new Ingredient('Macaroni', 1),
+  //       new Ingredient('Meatballs', 2),
+  //       new Ingredient('Tomato sauce', 1)
+  //     ])
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService) {}
 
