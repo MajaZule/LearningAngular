@@ -16,7 +16,7 @@ export class AuthService {
   
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=AIzaSyCamcdoNDchTMUQS-71VKWSlSdXDktJfBU',
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCamcdoNDchTMUQS-71VKWSlSdXDktJfBU',
       {
         email: email,
         password: password,
