@@ -20,6 +20,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.ingredients = this.store.select('shoppingList'); // we get back observable
+    // this.store.select('shoppingList').subscribe(); // this is another way to do this
+
     // this.ingredients = this.slService.getIngredients();
     // this.igChangeSub = this.slService.ingredientsChanged.subscribe(
     //   (ingredients: Ingredient[]) => {
