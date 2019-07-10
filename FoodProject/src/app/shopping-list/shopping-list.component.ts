@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Observable<{ ingredients: Ingredient[] }>;
-  private igChangeSub: Subscription;
+  private subscription: Subscription;
 
   constructor(
     private slService: ShoppingListService,
