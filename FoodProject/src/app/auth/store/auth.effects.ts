@@ -1,7 +1,7 @@
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
-import { AuthResponseData } from '../auth.service';
+import { AuthResponseData, AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -70,6 +70,9 @@ export class AuthEffects {
           returnSecureToken: true
         }
       ).pipe(
+        tap(resData => {
+          this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+        }),
         map(resData => {
           return handleAuthentication(
            +resData.expiresIn,
@@ -98,6 +101,9 @@ export class AuthEffects {
           returnSecureToken: true
         }
       ).pipe(
+        tap(resData => {
+          this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+        }),
         map(resData => {
           return handleAuthentication(
             +resData.expiresIn,
@@ -115,7 +121,7 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   authRedirect = this.actions$.pipe(
-    ofType(AuthActions.AUTHENTICATE_SUCCESS, AuthActions.LOGOUT), 
+    ofType(AuthActions.AUTHENTICATE_SUCCESS), 
     tap(() => {
       this.router.navigate(['/']);
     })
@@ -147,6 +153,10 @@ export class AuthEffects {
   
       if (loadedUser.token) {  
         // this.user.next(loadedUser);
+        const expirationDuration = 
+          new Date(userData._tokenExpirationDate).getTime() - 
+          new Date().getTime();
+        this.authService.setLogoutTimer(expirationDuration);
         return new AuthActions.AuthenticateSuccess({
           email: loadedUser.email, 
           userId: loadedUser.id, 
@@ -166,13 +176,16 @@ export class AuthEffects {
   authLogout = this.actions$.pipe(
     ofType(AuthActions.LOGOUT), 
     tap(() => {
+      this.authService.clearLogoutTimer();
       localStorage.removeItem('userData');
+      this.router.navigate(['/auth']);
     })
   )
 
   constructor(
     private actions$: Actions, 
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 }
