@@ -29,49 +29,6 @@ export class AuthService {
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
-  
-  signUp(email: string, password: string) {
-    return this.http.post<AuthResponseData>(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCamcdoNDchTMUQS-71VKWSlSdXDktJfBU',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      }
-    )
-      .pipe(
-        catchError(this.handleError), 
-        tap(resData => {
-          this.handleAuthentication(
-            resData.email, 
-            resData.localId, 
-            resData.idToken, 
-            +resData.expiresIn
-          );
-        })
-      );
-  }
-
-  logIn(email: string, password: string) {
-    return this.http.post<AuthResponseData>(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCamcdoNDchTMUQS-71VKWSlSdXDktJfBU',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      }
-    )
-      .pipe(catchError(this.handleError),
-      tap(resData => {
-        this.handleAuthentication(
-          resData.email, 
-          resData.localId, 
-          resData.idToken, 
-          +resData.expiresIn
-        );
-      })
-    );
-  }
 
   autoLogin() {
     const userData: {
@@ -112,7 +69,6 @@ export class AuthService {
   logOut() {
     // this.user.next(null);
     this.store.dispatch(new AuthActions.Logout());
-    this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     
     if (this.tokenExpirationTimer) {
